@@ -208,6 +208,47 @@ paths:
           description: Error
           schema:
             $ref: "#/definitions/ErrorResponse"
+            
+  /usuario-evento:
+    x-swagger-router-controller: usuario-evento.controller
+    
+    post:
+      operationId: postUsuarioEvento
+      parameters:
+        - name: usuario-evento
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Usuario-Evento"
+      responses:
+        "201":
+          description: Success
+          schema:
+            $ref: "#/definitions/Usuario-EventoResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /usuario-evento/{id}:
+    x-swagger-router-controller: usuario-evento.controller
+    
+    delete:
+      operationId: deleteUsuarioEvento
+      parameters:
+        - name: id
+          in: path 
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/DeleteResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
   
   /swagger:
     x-swagger-pipe: swagger_raw
@@ -245,7 +286,7 @@ definitions:
         type: string
       password: 
         type: string
-      role: 
+      rol: 
         type: string
   
 # Usuario
@@ -375,3 +416,31 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/EventoResponse"  
+          
+# Usuario-Evento
+
+  Usuario-Evento:
+    type: object
+    properties:
+      usuarioId:
+        type: number
+      eventoId: 
+        type: number
+    required:
+      - usuarioId
+      - eventoId
+      
+  Usuario-EventoResponse:
+    type: object
+    properties:
+      id:
+        type: number
+      usuarioId:
+        type: number
+      eventoId: 
+        type: number
+    required:
+      - id
+      - usuarioId
+      - eventoId
+
