@@ -64,7 +64,7 @@ function putUsuario(req, res) {
             usuarioIn.password = usuario.password;
         }
         else {
-            usuarioIn.password = toAES256(usuario.password);
+            usuarioIn.password = toAES256(usuarioIn.password);
         }
 
         return usuario.update(usuarioIn)
