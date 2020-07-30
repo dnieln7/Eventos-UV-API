@@ -4,9 +4,26 @@ const headers = require("../helpers/headers");
 
 const MODULE_NAME = '[Evento Controller]';
 
+const TAGS = ['Arte', 'Musica', 'Ciencia', 'Baile', 'Medicina', 'Cultura', 'Recreacion', 'Literatura', 'Especial'];
+
 function getEventos(req, res) {
-    evento.findAll()
-        .then(users => res.status(200).send(users))
+
+    const tagsIn = req.swagger.params.tags.value;
+
+    let options = {};
+
+    if (tagsIn) {
+        options = {
+            where: {
+                tags: {
+                    [Op.overlap]: tagsIn
+                }
+            }
+        }
+    }
+
+    evento.findAll(options)
+        .then(eventos => res.status(200).send(eventos))
         .catch(error => res.status(500).send(error));
 }
 

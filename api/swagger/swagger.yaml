@@ -145,6 +145,13 @@ paths:
     
     get:
       operationId: getEventos
+      parameters:
+        - name: tags
+          in: query
+          required: false
+          type: array
+          items:
+            type: string
       responses:
         "200":
           description: Success
@@ -152,7 +159,7 @@ paths:
             $ref: "#/definitions/EventoList"
         default:
           description: Error
-          schema: 
+          schema:
             $ref: "#/definitions/ErrorResponse"
     
     post:
